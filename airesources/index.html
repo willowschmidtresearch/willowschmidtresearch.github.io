@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resources — Willow Schmidt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --ink:#2e1f1f; --paper:#f7f2f0; --accent:#9e6b5e;
+      --accent-light:#f0e4e0; --muted:#8a7570;
+      --border:rgba(46,31,31,0.12); --card-bg:#ffffff; --max:660px;
+    }
+    html { font-size:16px; }
+    body { background:var(--paper); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.6; min-height:100vh; padding:2rem 1.25rem 5rem; }
+    @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    a { color:inherit; }
+    .max { max-width:var(--max); margin-left:auto; margin-right:auto; }
+    .section-label { font-size:.7rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.85rem; }
+    hr.rule { border:none; border-top:1px solid var(--border); margin:2.5rem auto; max-width:var(--max); }
+
+    /* Header */
+    .site-header { text-align:center; margin-bottom:2rem; animation:rise 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+    .back-link { display:inline-flex; align-items:center; gap:.3rem; font-size:.78rem; font-weight:400; color:var(--muted); text-decoration:none; letter-spacing:.05em; text-transform:uppercase; margin-bottom:1.5rem; transition:color .2s; }
+    .back-link:hover { color:var(--accent); }
+    .divider { width:2.5rem; height:1px; background:var(--border); margin:1.4rem auto; }
+    h1 { font-family:'DM Serif Display',serif; font-size:clamp(2rem,7vw,2.75rem); font-weight:400; line-height:1.08; letter-spacing:-.02em; color:var(--ink); margin-bottom:.75rem; }
+    .intro { font-size:.92rem; color:var(--muted); max-width:480px; margin:0 auto; line-height:1.75; }
+
+    /* WIP banner */
+    .wip-banner { background:var(--accent-light); border:1px solid rgba(158,107,94,.25); border-radius:10px; padding:.75rem 1rem; font-size:.8rem; color:var(--accent); line-height:1.6; margin-bottom:1.5rem; }
+    .wip-banner a { color:var(--accent); font-weight:500; text-decoration:underline; }
+
+    /* Infographic thumbnail card */
+    .infographic-card { display:flex; align-items:center; gap:1rem; background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:1rem 1.2rem; text-decoration:none; transition:box-shadow .22s,transform .22s; animation:rise 0.6s 0.08s cubic-bezier(0.22,1,0.36,1) both; }
+    .infographic-card:hover { box-shadow:0 6px 24px rgba(158,107,94,.13); transform:translateY(-2px); }
+    .infographic-thumb { width:80px; height:80px; border-radius:8px; object-fit:cover; object-position:top center; flex-shrink:0; border:1px solid var(--border); display:block; }
+    .infographic-text { flex:1; }
+    .infographic-text h3 { font-family:'DM Serif Display',serif; font-size:1rem; font-weight:400; color:var(--ink); margin-bottom:.2rem; line-height:1.35; }
+    .infographic-text p { font-size:.8rem; color:var(--muted); line-height:1.5; margin-bottom:.5rem; }
+    .pill { display:inline-flex; align-items:center; font-size:.72rem; font-weight:500; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:.2rem .7rem; transition:background .2s,color .2s; }
+    .infographic-card:hover .pill { background:var(--accent); color:white; }
+
+    /* 50/50 research grid */
+    .research-grid { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+    @media (max-width:500px) { .research-grid { grid-template-columns:1fr; } }
+
+    .research-card { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; animation:rise 0.6s 0.12s cubic-bezier(0.22,1,0.36,1) both; }
+    .research-card-inner { padding:1.1rem 1.2rem 1.2rem; flex:1; display:flex; flex-direction:column; }
+    .research-card-inner h3 { font-family:'DM Serif Display',serif; font-size:.98rem; font-weight:400; color:var(--ink); margin-bottom:.2rem; line-height:1.35; }
+    .research-meta { font-size:.7rem; color:var(--muted); margin-bottom:.7rem; line-height:1.5; }
+    .abstract { font-size:.78rem; color:var(--muted); line-height:1.65; border-left:2px solid var(--accent-light); padding-left:.75rem; overflow:hidden; max-height:5em; -webkit-mask-image:linear-gradient(to bottom,black 50%,transparent 100%); mask-image:linear-gradient(to bottom,black 50%,transparent 100%); margin-bottom:.8rem; flex:1; }
+    .research-links { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:auto; }
+    .btn-outline { display:inline-flex; align-items:center; gap:.3rem; font-size:.72rem; font-weight:500; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:.25rem .8rem; text-decoration:none; transition:background .2s,color .2s; }
+    .btn-outline:hover { background:var(--accent); color:white; }
+
+    /* Poster image strip inside card */
+    .poster-img-strip { width:100%; height:140px; object-fit:cover; object-position:top; display:block; border-bottom:1px solid var(--border); background:var(--accent-light); }
+    .poster-placeholder { width:100%; height:140px; background:var(--accent-light); display:flex; align-items:center; justify-content:center; font-size:2rem; border-bottom:1px solid var(--border); }
+
+    /* References */
+    .ref-group { margin-bottom:1.5rem; animation:rise 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+    .ref-group-label { font-size:.68rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:.5rem; padding-bottom:.4rem; border-bottom:1px solid var(--accent-light); }
+    .ref-list { list-style:none; display:flex; flex-direction:column; gap:.4rem; }
+    .ref-item a { display:flex; align-items:flex-start; gap:.65rem; padding:.7rem .9rem; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:box-shadow .2s,transform .18s; }
+    .ref-item a:hover { box-shadow:0 3px 14px rgba(158,107,94,.11); transform:translateY(-1px); }
+    .ref-icon { font-size:.9rem; flex-shrink:0; margin-top:.1rem; opacity:.7; }
+    .ref-text { flex:1; }
+    .ref-title { font-size:.84rem; font-weight:400; color:var(--ink); line-height:1.4; margin-bottom:.15rem; display:block; }
+    .ref-author { font-size:.75rem; color:var(--muted); display:block; }
+    .ref-arrow { font-size:.8rem; color:var(--border); padding-top:.2rem; flex-shrink:0; transition:color .2s,transform .2s; }
+    .ref-item a:hover .ref-arrow { color:var(--accent); transform:translateX(2px); }
+
+    /* Footer */
+    .page-footer { max-width:var(--max); margin:0 auto; padding-top:2rem; border-top:1px solid var(--border); display:flex; align-items:flex-start; gap:1rem; animation:rise 0.6s 0.35s cubic-bezier(0.22,1,0.36,1) both; }
+    .avatar { width:42px; height:42px; border-radius:50%; background:var(--accent-light); border:2px solid var(--accent); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'DM Serif Display',serif; font-size:1.05rem; color:var(--accent); margin-top:.1rem; }
+    .footer-text p { font-size:.81rem; color:var(--muted); line-height:1.65; }
+    .footer-text a { color:var(--accent); font-weight:500; text-decoration:none; }
+    .footer-text a:hover { text-decoration:underline; }
+    .built-with { font-size:.72rem; color:var(--border); margin-top:.35rem; }
+    .built-with a { color:var(--muted); font-weight:400; }
+  </style>
+</head>
+<body>
+
+  <!-- EDIT: page header -->
+  <header class="site-header max">
+    <a href="/" class="back-link">← willowschmidt.com</a>
+    <h1>AI &amp; Cognition</h1>
+    <div class="divider"></div>
+    <!-- EDIT: intro paragraph -->
+    <p class="intro">A collection of research, guides, and resources on artificial intelligence and cognition — including my own work and the sources that informed it.</p>
+  </header>
+
+  <!-- EDIT: WIP banner -->
+  <div class="max" style="animation:rise 0.6s 0.05s cubic-bezier(0.22,1,0.36,1) both;">
+    <div class="wip-banner">
+      🌱 This site is brand new and still actively being developed. Feedback is genuinely appreciated — <a href="mailto:willow.schmidt.research@gmail.com">send me a note</a>.
+    </div>
+  </div>
+
+  <!-- EDIT: infographic card — image will display once AI_and_cognitive_offloading.png is in your Netlify folder -->
+  <div class="max" style="margin-bottom:2rem; animation:rise 0.6s 0.1s cubic-bezier(0.22,1,0.36,1) both;">
+    <p class="section-label">Featured infographic</p>
+    <a href="ai_and_cognitive_offloading.png" target="_blank" class="infographic-card">
+      <img src="ai_and_cognitive_offloading.png" alt="AI Use and Cognition: A Harm Reduction Guide" class="infographic-thumb" />
+      <div class="infographic-text">
+        <h3>AI Use &amp; Cognition: A Harm Reduction Guide</h3>
+        <p>Information on how to effectively use AI as a student without harming cognitive abilities.</p>
+        <span class="pill">View infographic →</span>
+      </div>
+    </a>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- EDIT: research 50/50 grid -->
+  <div class="max" style="margin-bottom:2rem;">
+    <p class="section-label">Research</p>
+    <div class="research-grid">
+
+      <!-- Paper card -->
+      <div class="research-card">
+        <div class="research-card-inner">
+          <h3>Beyond the Chatbot: How Students Use Generative AI and What It Means for Cognition</h3>
+          <p class="research-meta">Willow Schmidt · UC Santa Cruz · Cornell Undergraduate Psychology Conference, April 2026</p>
+          <!-- EDIT: this is your actual abstract text -->
+          <p class="abstract">AI use in academic settings has become an increasingly contested topic, with concerns highlighting how students engage with the technology and the potential long-term effects on learning. This study examined patterns of AI use among college students and their relationship to performance on a Cloze reading comprehension test, as well as a Remote Associates Task. Significant negative correlations were found between negative AI use and Cloze test accuracy, negative AI use and overall accuracy, as well as overall AI use and Cloze test accuracy.</p>
+          <div class="research-links">
+            <a href="https://docs.google.com/document/d/16MyPOt5QEetfRe4Acjolqci1Y3YyFXzn_38pI-yh9Ok/edit?usp=sharing" target="_blank" class="btn-outline">📄 Read the full paper →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Poster card — image will display once poster.jpg is in your Netlify folder -->
+      <a href="poster.jpg" target="_blank" class="research-card" style="text-decoration:none;">
+        <img src="poster.jpg" alt="Research conference poster" class="poster-img-strip" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="poster-placeholder" style="display:none;">🖼</div>
+        <div class="research-card-inner">
+          <h3>Research Poster</h3>
+          <p class="research-meta">Poster for AI and cognition research, presented at Cornell CUP.</p>
+          <div class="research-links" style="margin-top:.5rem;">
+            <span class="btn-outline">View poster →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <hr class="rule" />
+
+  <!-- References -->
+  <div class="max">
+    <p class="section-label">Supplementary research &amp; resources</p>
+
+    <!-- EDIT: add/remove reference cards here -->
+    <div class="ref-group" style="animation-delay:.1s">
+      <p class="ref-group-label">AI use &amp; cognition</p>
+      <ul class="ref-list">
+        <li class="ref-item"><a href="https://doi.org/10.1073/pnas.2422633122" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">Generative AI Can Harm Learning</span><span class="ref-author">Bastani et al. (2025) · PNAS</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://doi.org/10.3390/soc15010006" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking</span><span class="ref-author">Gerlich (2025) · Societies</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://doi.org/10.1007/s10648-025-10020-8" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">Looking Beyond the Hype: Understanding the Effects of AI on Learning</span><span class="ref-author">Bauer et al. (2025) · Educational Psychology Review</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://arxiv.org/abs/2506.08872" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">Your Brain on ChatGPT: Accumulation of Cognitive Debt When Using an AI Assistant for Essay Writing</span><span class="ref-author">Kosmyna et al. (2025) · arXiv</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://doi.org/10.1002/brx2.30" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">ChatGPT: The Cognitive Effects on Learning and Memory</span><span class="ref-author">Bai, Liu &amp; Su (2023) · Brain-X</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://doi.org/10.1111/bjet.13514" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">The Interplay of Learning, Analytics and AI in Education: A Vision for Hybrid Intelligence</span><span class="ref-author">Cukurova (2025) · British Journal of Educational Technology</span></span><span class="ref-arrow">↗</span></a></li>
+      </ul>
+    </div>
+
+    <div class="ref-group" style="animation-delay:.14s">
+      <p class="ref-group-label">AI literacy</p>
+      <ul class="ref-list">
+        <li class="ref-item"><a href="https://doi.org/10.1080/08874417.2025.2582050" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">Cognitive Risks of AI: Literacy, Trust, and Critical Thinking</span><span class="ref-author">Kulal (2025) · Journal of Computer Information Systems</span></span><span class="ref-arrow">↗</span></a></li>
+      </ul>
+    </div>
+
+    <div class="ref-group" style="animation-delay:.18s">
+      <p class="ref-group-label">AI in academic settings</p>
+      <ul class="ref-list">
+        <li class="ref-item"><a href="https://news.gallup.com/poll/704090/routine-college-students-despite-campus-limits.aspx" target="_blank"><span class="ref-icon">📊</span><span class="ref-text"><span class="ref-title">AI Is Routine for College Students, Despite Campus Limits</span><span class="ref-author">Marken (2026) · Gallup</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://www.pewresearch.org/short-reads/2025/01/15/about-a-quarter-of-us-teens-have-used-chatgpt-for-schoolwork-double-the-share-in-2023/" target="_blank"><span class="ref-icon">📊</span><span class="ref-text"><span class="ref-title">About a Quarter of U.S. Teens Have Used ChatGPT for Schoolwork — Double the Share in 2023</span><span class="ref-author">Beshay (2025) · Pew Research Center</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://www.pewresearch.org/short-reads/2025/06/25/34-of-us-adults-have-used-chatgpt-about-double-the-share-in-2023/" target="_blank"><span class="ref-icon">📊</span><span class="ref-text"><span class="ref-title">34% of U.S. Adults Have Used ChatGPT, About Double the Share in 2023</span><span class="ref-author">Sidoti &amp; McClain (2025) · Pew Research Center</span></span><span class="ref-arrow">↗</span></a></li>
+        <li class="ref-item"><a href="https://doi.org/10.58421/gehu.v3i3.242" target="_blank"><span class="ref-icon">📄</span><span class="ref-text"><span class="ref-title">AI in Higher Education: The Power and Damage of AI-Assisted Tools on Academic English Reading Skills</span><span class="ref-author">Chea &amp; Xiao (2024) · Journal of General Education and Humanities</span></span><span class="ref-arrow">↗</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EDIT: footer -->
+  <div class="page-footer max" style="margin-top:2.5rem;">
+    <div class="avatar">W</div>
+    <div class="footer-text">
+      <p>Curated by <a href="/">Willow Schmidt</a>, undergraduate researcher at UC Santa Cruz studying Psychology, Cognitive Science, and Statistics. Questions or feedback? <a href="mailto:willow.schmidt.research@gmail.com">willow.schmidt.research@gmail.com</a></p>
+      <p class="built-with">Built with the help of <a href="https://claude.ai" target="_blank">Claude</a>.</p>
+    </div>
+  </div>
+
+</body>
+</html>
