@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Willow Schmidt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #2e1f1f;
+      --paper: #f7f2f0;
+      --accent: #9e6b5e;
+      --accent-light: #f0e4e0;
+      --muted: #8a7570;
+      --border: rgba(46,31,31,0.12);
+      --card-bg: #ffffff;
+    }
+    html { font-size: 16px; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1.25rem 5rem;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    a { color: inherit; text-decoration: none; }
+    .max { max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .78rem;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .site-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: rise 0.6s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero-photo-wrap {
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--accent-light);
+      box-shadow: 0 2px 12px rgba(158,107,94,0.15);
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 7vw, 3rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .tagline {
+      font-size: 0.88rem;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .divider {
+      width: 2.5rem;
+      height: 1px;
+      background: var(--border);
+      margin: 1.25rem auto;
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .acc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      animation: rise 0.6s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .acc-card:nth-child(1) { animation-delay: 0.08s; }
+    .acc-card:nth-child(2) { animation-delay: 0.14s; }
+    .acc-card:nth-child(3) { animation-delay: 0.20s; }
+    .acc-card:nth-child(4) { animation-delay: 0.26s; }
+
+    .acc-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      cursor: pointer;
+      text-align: left;
+      color: var(--ink);
+      transition: background 0.2s;
+    }
+    .acc-toggle:hover { background: var(--paper); }
+
+    .acc-icon {
+      width: 36px; height: 36px;
+      border-radius: 9px;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: .05rem;
+    }
+    .acc-meta { flex: 1; }
+    .acc-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+    .acc-summary {
+      font-size: 0.75rem;
+      color: var(--accent);
+      line-height: 1.5;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .acc-card.open .acc-summary { display: none; }
+    .acc-chevron {
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: transform 0.3s ease, color 0.2s;
+      margin-top: .35rem;
+      flex-shrink: 0;
+    }
+    .acc-card.open .acc-chevron {
+      transform: rotate(180deg);
+      color: var(--accent);
+    }
+
+    .acc-body {
+      display: none;
+      padding: 0 1.4rem 1.4rem;
+      font-size: 0.875rem;
+      line-height: 1.8;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    .acc-card.open .acc-body {
+      display: block;
+      animation: rise 0.2s ease;
+    }
+    .acc-body p { margin-top: 1rem; }
+    .acc-body p:first-child { margin-top: .9rem; }
+    .acc-body a {
+      color: var(--accent);
+      font-weight: 500;
+      border-bottom: 1px solid var(--accent-light);
+      transition: border-color .2s;
+    }
+    .acc-body a:hover { border-color: var(--accent); }
+
+    .placeholder-text {
+      font-style: italic;
+      color: var(--border);
+      font-size: 0.8rem;
+      margin-top: .9rem;
+    }
+
+    .site-footer {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      animation: rise 0.6s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid var(--accent);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--accent);
+      margin-top: .1rem;
+    }
+    .footer-text p { font-size: .81rem; color: var(--muted); line-height: 1.65; }
+    .footer-text a { color: var(--accent); font-weight: 500; }
+    .footer-text a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<div class="max">
+
+  <header class="site-header">
+    <a href="/" class="back-link">← willowschmidt.com</a>
+
+    <div class="hero-photo-wrap">
+      <!-- Drop Profile_pic.png into your images/ folder and update this path -->
+      <img src="images/Profile_pic.png" alt="Willow Schmidt" class="hero-photo" />
+    </div>
+
+    <h1>Willow Schmidt</h1>
+    <p class="tagline">
+      Psychology (Intensive) · Cognitive Science · Statistics Minor<br>
+      University of California, Santa Cruz
+    </p>
+    <div class="divider"></div>
+  </header>
+
+  <div class="accordion">
+
+    <!-- Academic -->
+    <div class="acc-card open" id="s-academic">
+      <button class="acc-toggle" onclick="toggle('s-academic')" aria-expanded="true">
+        <div class="acc-icon">📚</div>
+        <div class="acc-meta">
+          <p class="acc-title">Academic background</p>
+          <p class="acc-summary">Click to read ↓</p>
+        </div>
+        <span class="acc-chevron">▼</span>
+      </button>
+      <div class="acc-body">
+        <p>I grew up in the Bay Area, and for most of my academic career, I was not a good student. I never studied, would skip class, and only do the bare minimum to pass my classes. I never saw myself going to college, and only applied to UCSC as a business management &amp; economics major, but was rejected. I ended up studying business at a local community college, Cabrillo College, but after about a year and a half, I realized that something needed to change, so I switched to psychology and started to really fall in love with school.</p>
+        <p>I finished at Cabrillo about a year and a half later with an A.A. in Psychology, as well as an A.A. in Liberal Arts &amp; Sciences (interdisciplinary emphasis), and finally transferred to UCSC.</p>
+        <p>My first class, Research Methods, made it immediately clear this was where I was supposed to be, and I started thinking about the possibility of graduate school for the first time.</p>
+        <p>Since then, I have added Cognitive Science as an additional major, switched to the intensive route (compared to the general route) for Psychology to prepare for grad school, and added a Statistics minor.</p>
+        <p>I hope to continue to prove that I was never a dumb student, just an unmotivated one.</p>
+      </div>
+    </div>
+
+    <!-- Research -->
+    <div class="acc-card" id="s-research">
+      <button class="acc-toggle" onclick="toggle('s-research')" aria-expanded="false">
+        <div class="acc-icon">🔬</div>
+        <div class="acc-meta">
+          <p class="acc-title">Research interests</p>
+          <p class="acc-summary">Click to read ↓</p>
+        </div>
+        <span class="acc-chevron">▼</span>
+      </button>
+      <div class="acc-body">
+        <p>My primary interest is in social psychology, particularly the psychology behind gender, sexuality, and cultural norms.</p>
+        <p>I am currently working on an ongoing examination of hegemonic masculinity and its psychological costs for men who don't conform to rigid gender norms, as well as the rise of the "manosphere", "incel" culture, and the newly trending "looksmaxxing".</p>
+        <p>I am also continuing to develop research on college students' use of generative AI (<a href="/airesources">click here to learn more</a>). I presented this research at the Cornell Undergraduate Psychology Conference in April 2026 and am continuing to develop it, with a focus on harm reduction strategies for mitigating the cognitive effects of AI use among college students.</p>
+        <p>Other areas of interest include psychedelic-assisted therapy, online communities and parasocial relationships, and the psychology of the "male loneliness epidemic."</p>
+      </div>
+    </div>
+
+    <!-- Personal -->
+    <div class="acc-card" id="s-personal">
+      <button class="acc-toggle" onclick="toggle('s-personal')" aria-expanded="false">
+        <div class="acc-icon">🌿</div>
+        <div class="acc-meta">
+          <p class="acc-title">Personal</p>
+          <p class="acc-summary">Click to read ↓</p>
+        </div>
+        <span class="acc-chevron">▼</span>
+      </button>
+      <div class="acc-body">
+        <p>My name is Willow Schmidt, I am 22, originally from the Bay Area, and have lived in Santa Cruz for four years. Most of my family is from Germany, so I grew up speaking English and German, and I am slowly working on Spanish.</p>
+        <p>One of my greatest passions is art, and I was on track to go to art school before I realized that I did not want to turn my passion into a means of income. I mostly specialize in drawing and painting, but have tried almost all kinds of art forms, even tattooing. I try to create art whenever I have the time.</p>
+        <p>I started training in kickboxing and jiujitsu about a year and a half ago, and it's become one of the more important parts of my life. I would like to compete once I have more time, and I am hoping to get my blue belt before the year is over.</p>
+        <p>Around the time I started training, I got sober from alcohol, and I will be a year sober on June 25th, 2026.</p>
+        <p>Lastly, anyone who knows me knows that I come with a German Shepherd named Nala, who is my service dog. I suffer from fibromyalgia, which is a condition that causes chronic pain and fatigue, and Nala has been trained to help me with day-to-day tasks that are made more difficult due to my disability.</p>
+        <p>Overall, I think these are the things that sum me up pretty well outside of school. I am incredibly thankful to be where I am today, and feel that the more I learned about psychology, the more I was able to understand the world around me.</p>
+        <img src="images/willow-nala.jpg" alt="Willow and Nala" style="width:100%; border-radius:10px; margin-top:1.25rem; border:1px solid var(--border);" />
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="avatar">W</div>
+    <div class="footer-text">
+      <p><a href="/">Willow Schmidt</a> &nbsp;·&nbsp; <a href="mailto:geschmid@ucsc.edu">geschmid@ucsc.edu</a> &nbsp;·&nbsp; Santa Cruz, California</p>
+      <p style="margin-top:.3rem;"><a href="/cv">CV</a> &nbsp;·&nbsp; <a href="/airesources">AI Resources</a></p>
+    </div>
+  </footer>
+
+</div>
+<script>
+  function toggle(id) {
+    const card = document.getElementById(id);
+    const btn  = card.querySelector('.acc-toggle');
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.acc-card').forEach(c => {
+      c.classList.remove('open');
+      c.querySelector('.acc-toggle').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      card.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+</script>
+</body>
+</html>
